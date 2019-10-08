@@ -20,7 +20,7 @@ public class File {
     @Column
     private int size;
 
-    @JsonIgnoreProperties(value = "folders")
+    @JsonIgnoreProperties(value = "files")
     @ManyToOne
     @JoinColumn(name = "folder_id", nullable = false)
     private Folder folder;

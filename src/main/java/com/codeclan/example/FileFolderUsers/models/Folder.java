@@ -3,6 +3,7 @@ package com.codeclan.example.FileFolderUsers.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,12 +12,14 @@ public class Folder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column
     private String name;
 
-    @Column
+    @JsonIgnoreProperties(value = "folders")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @JsonIgnoreProperties(value = "folders")
@@ -29,6 +32,7 @@ public class Folder {
     public Folder(String name, User user) {
         this.name = name;
         this.user = user;
+        this.files = new ArrayList<>();
     }
 
     public User getUser() {
@@ -53,6 +57,10 @@ public class Folder {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addFile(File file){
+        this.files.add(file);
     }
 
 }
