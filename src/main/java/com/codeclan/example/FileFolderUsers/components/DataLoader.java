@@ -27,20 +27,21 @@ public class DataLoader implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        User user1 = new User("User");
+    public void run(ApplicationArguments args) {
+
+        User user = new User("Stephen");
+        userRepository.save(user);
+
+        User user1 = new User("Joe");
         userRepository.save(user1);
 
-        User user2 = new User("User2");
-        userRepository.save(user2);
-
-        Folder folder = new Folder("Data", user1);
+        Folder folder = new Folder("My Documents", user);
         folderRepository.save(folder);
 
-        Folder folder2 = new Folder("Words", user2);
-        folderRepository.save(folder2);
+        Folder folder1 = new Folder("My Documents", user1);
+        folderRepository.save(folder1);
 
-        File file = new File("File", "txt", 40, folder);
+        File file = new File("My Secret Diary DO NOT READ", "doc", 1024, folder);
         fileRepository.save(file);
     }
 }
